@@ -1,18 +1,21 @@
-const horas = document.getElementById("Horas");
-const minutos = document.getElementById("Minutos");
-const segundos = document.getElementById("Segundos");
+function updateTime() {
+  const now = new Date();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+  let dayNight = "AM";
 
-const relogio = setInterval(function time() {
-  let dateToday = new Date();
-  let hr = dateToday.getHours();
-  let min = dateToday.getMinutes();
-  let s = dateToday.getSeconds();
+  if (hours > 12) {
+    hours -= 12;
+    dayNight = "PM";
+  }
 
-  horas.textContent = hr;
-  minutos.textContent = min;
-  segundos.textContent = s;
+  hours = hours.toString().padStart(2, "0");
+  minutes = minutes.toString().padStart(2, "0");
+  seconds = seconds.toString().padStart(2, "0");
 
-  if (hr < 10) hr = "0" + hr;
-  if (min < 10) min = "0" + hr;
-  if (s < 10) s = "0" + hr;
-})();
+  const timeString = `${hours}:${minutes}:${seconds} ${dayNight}`;
+  document.getElementById("time").textContent = timeString;
+}
+
+setInterval(updateTime, 1000);
